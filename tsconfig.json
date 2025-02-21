@@ -17,7 +17,7 @@
       "sourceMap": true,                       // Gera arquivos .map, permitindo a depuração do código TypeScript no navegador ou em ferramentas de desenvolvimento
       "incremental": true,                     // Habilita compilações incrementais, armazenando informações de compilação para acelerar builds futuros
     },
-    "include": ["src"],                        // Especifica quais arquivos devem ser incluídos na compilação
+    "include": ["./src"],                      // Especifica quais arquivos devem ser incluídos na compilação
     "exclude": ["node_modules", "dist"]        // Exclui diretórios desnecessários da compilação
   }
 
