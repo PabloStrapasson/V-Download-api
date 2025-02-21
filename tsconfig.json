@@ -1,0 +1,24 @@
+  {
+    "compilerOptions": {
+      "target": "ES2021",                      // Define o alvo da compilação do JavaScript
+      "module": "CommonJS",                    // Define o sistema de módulos
+      "outDir": "./dist",                      // Define a pasta de saída para os arquivos compilados
+      "rootDir": "./src",                      // Define a pasta raiz do código-fonte
+      "baseUrl": "./",                         // Define a base para resolução de módulos, evitando caminhos relativos complexos
+      "strict": true,                          // Ativa verificações rigorosas de tipo
+      "esModuleInterop": true,                 // Permite interoperabilidade com módulos ES
+      "forceConsistentCasingInFileNames": true,// Garante que os nomes dos arquivos sejam usados de forma consistente
+      "skipLibCheck": true,                    // Ignora a verificação de tipo em arquivos de declaração
+      "resolveJsonModule": true,               // Permite a importação de arquivos JSON
+      "strictNullChecks": true,                // Garante que valores null e undefined sejam tratados corretamente
+      "emitDecoratorMetadata": true,           // Habilita a geração de metadados para decorators
+      "experimentalDecorators": true,          // Habilita o uso de decorators experimentais
+      "allowSyntheticDefaultImports": true,    // Permite importar módulos que não possuem um export default como se tivessem, útil para compatibilidade com certos pacotes
+      "sourceMap": true,                       // Gera arquivos .map, permitindo a depuração do código TypeScript no navegador ou em ferramentas de desenvolvimento
+      "incremental": true,                     // Habilita compilações incrementais, armazenando informações de compilação para acelerar builds futuros
+    },
+    "include": ["src"],                        // Especifica quais arquivos devem ser incluídos na compilação
+    "exclude": ["node_modules", "dist"]        // Exclui diretórios desnecessários da compilação
+  }
+
+  
