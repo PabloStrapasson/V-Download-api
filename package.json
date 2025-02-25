@@ -33,6 +33,7 @@
     "typescript-eslint": "^8.24.1"
   },
   "dependencies": {
+    "@distube/ytdl-core": "^4.16.4",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "fluent-ffmpeg": "^2.1.3"
