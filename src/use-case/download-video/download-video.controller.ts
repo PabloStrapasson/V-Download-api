@@ -5,8 +5,18 @@ export class DownloadVideoController {
   constructor(private downloadVideoUseCase: DownloadVideoUseCase) {}
 
   async downloadVideo(req: Request, res: Response) {
-    const result = await this.downloadVideoUseCase.execute();
+    const videoID = req.params.id;
+    const videoTags = req.body;
+    try {
+      const result = await this.downloadVideoUseCase.execute(
+        videoID,
+        videoTags,
+      );
 
-    return res.status(200).send(result);
+      //return res.status(200).download(result.outputFilePath);
+      return res.status(200).json(result);
+    } catch {
+      return res.status(404).json({ message: 'Video not found' });
+    }
   }
 }

@@ -1,14 +1,10 @@
 import ffmpeg from 'fluent-ffmpeg';
 
-export function mergeAudioVideo(
-  videoPath: string,
-  audioPath: string,
-  outputPath: string,
-) {
+export function mergeAudioVideo(inputFilePaths: string[], outputPath: string) {
   return new Promise((resolve, reject) => {
     ffmpeg()
-      .input(videoPath)
-      .input(audioPath)
+      .input(inputFilePaths[0])
+      .input(inputFilePaths[1])
       .outputOptions('-c:v copy')
       .outputOptions('-c:a aac')
       .outputOptions('-strict experimental')

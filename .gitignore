@@ -61,3 +61,5 @@ tsconfig.tsbuildinfo
 
 #anothers files and directorys
 /videos
+/temp
+TODO.txt
