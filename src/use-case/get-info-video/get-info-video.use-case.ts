@@ -9,30 +9,38 @@ interface InfoFormat {
 
 interface InfoVideo {
   title: string;
-  avaliableFormats: Array<InfoFormat>;
+  availableFormats: Array<InfoFormat>;
 }
 
 export class GetInfoVideoUseCase {
   async execute(videoID: string): Promise<InfoVideo> {
-    const avaliableFormatsList: Array<InfoFormat> = [];
+    const availableFormatsList: Array<InfoFormat> = [];
 
     try {
       const videoInfo = await ytdl.getInfo(videoID);
       const videoTitle = videoInfo.videoDetails.title;
       videoInfo.formats.forEach((format) => {
-        const infoFormat = {
-          itag: format.itag,
-          mimeType: format.mimeType?.split('/')[0],
-          qualityLabel: format.qualityLabel,
-          container: format.container,
-        };
+        if (format.hasVideo && format.container === 'mp4') {
+          const infoFormat = {
+            itag: format.itag,
+            mimeType: format.mimeType?.split('/')[0],
+            qualityLabel:
+              format.mimeType?.split('/')[0] === 'video'
+                ? format.qualityLabel
+                : 'audio',
+            container: format.container,
+          };
 
-        avaliableFormatsList.push(infoFormat);
+          availableFormatsList.push(infoFormat);
+        }
       });
+
+      const uniqueFormats = this.filterFormats(availableFormatsList);
+      console.log(uniqueFormats);
 
       const infoVideo = {
         title: videoTitle,
-        avaliableFormats: avaliableFormatsList,
+        availableFormats: uniqueFormats,
       };
 
       return infoVideo;
@@ -40,5 +48,24 @@ export class GetInfoVideoUseCase {
       console.error('Error:', err);
       throw new Error();
     }
+  }
+
+  filterFormats(formats: Array<InfoFormat>): Array<InfoFormat> {
+    const uniqueFormatTags = formats.filter(
+      (format, index, self) =>
+        index === self.findIndex((f) => f.itag === format.itag),
+    );
+
+    const uniqueFormatResolutionAndContainer = uniqueFormatTags.filter(
+      (format, index, self) =>
+        index ===
+        self.findIndex(
+          (f) =>
+            f.qualityLabel === format.qualityLabel &&
+            f.container === format.container,
+        ),
+    );
+
+    return uniqueFormatResolutionAndContainer;
   }
 }
