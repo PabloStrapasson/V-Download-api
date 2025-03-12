@@ -1,19 +1,10 @@
 import ytdl from '@distube/ytdl-core';
+import { InfoFormat } from '../../types/infoFormat';
+import { GetVideoInfoRespose } from './get-video-info.dto';
+import { NotFound } from '../../errors/errorHandler';
 
-interface InfoFormat {
-  itag: number;
-  mimeType: string | undefined;
-  qualityLabel: string;
-  container: string;
-}
-
-interface InfoVideo {
-  title: string;
-  availableFormats: Array<InfoFormat>;
-}
-
-export class GetInfoVideoUseCase {
-  async execute(videoID: string): Promise<InfoVideo> {
+export class GetVideoInfoUseCase {
+  async execute(videoID: string): Promise<GetVideoInfoRespose> {
     const availableFormatsList: Array<InfoFormat> = [];
 
     try {
@@ -36,17 +27,14 @@ export class GetInfoVideoUseCase {
       });
 
       const uniqueFormats = this.filterFormats(availableFormatsList);
-      console.log(uniqueFormats);
-
       const infoVideo = {
         title: videoTitle,
         availableFormats: uniqueFormats,
       };
 
       return infoVideo;
-    } catch (err) {
-      console.error('Error:', err);
-      throw new Error();
+    } catch {
+      throw new NotFound('Video não encontrado');
     }
   }
 

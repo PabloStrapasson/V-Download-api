@@ -5,15 +5,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { removeFile } from '../../utils/removeFile';
 import { mergeAudioVideo } from '../../utils/mergeAudioVideo';
 import { copyAndRenameFile } from '../../utils/copyAndRenameFile';
-
-interface VideoTag {
-  title: string;
-  container: string;
-  itag: number[];
-}
+import { NotFound } from '../../errors/errorHandler';
+import {
+  DownloadVideoRequest,
+  DownloadVideoResponse,
+} from './download-video.dto';
 
 export class DownloadVideoUseCase {
-  async execute(videoID: string, videoTag: VideoTag) {
+  async execute(
+    videoID: string,
+    videoTag: DownloadVideoRequest,
+  ): Promise<DownloadVideoResponse> {
     try {
       const tempFilesPath: string[] = [];
       const videoInfo = await ytdl.getInfo(videoID);
@@ -42,9 +44,8 @@ export class DownloadVideoUseCase {
         message: `${videoTag.title} baixado com sucesso`,
         outputFilePath,
       };
-    } catch (err) {
-      console.error('Error:', err);
-      throw new Error();
+    } catch {
+      throw new NotFound('Video not found');
     }
   }
 
