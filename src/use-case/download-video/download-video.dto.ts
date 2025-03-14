@@ -3,7 +3,7 @@ import { z } from 'zod';
 const containerEnum = ['mp4', 'webm', 'm4a'] as const;
 
 export const DownloadVideoRequestSchema = z.object({
-  title: z.string().nonempty().min(3).max(50),
+  title: z.string().nonempty().min(1).max(100),
   container: z.enum(containerEnum),
   itag: z.number().array().nonempty().max(2),
 });
