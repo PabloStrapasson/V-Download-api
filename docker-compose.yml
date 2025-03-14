@@ -1,33 +1,8 @@
    
 services:
-  # postgres:
-  #   image: postgres:latest
-  #   environment:
-  #     POSTGRES_HOST: "postgres"
-  #     POSTGRES_PORT: "5432"
-  #     POSTGRES_USER: "root"
-  #     POSTGRES_PASSWORD: "root"
-  #     POSTGRES_DB: "db_shopper"
-  #     PGDATA: "/data/postgres"
-  #   volumes:
-  #     - postgres:/data/postgres
-  #   ports:
-  #     - "5432:5432"
-  #   restart: unless-stopped
-  
+
   api:
     build: .
     command: npm run start:prod
-    # environment:
-    #   - PORT=3500
-    #   - TEMP_PATH=temp/
     ports: 
       - "3500:3500"
-    
-  # swagger:
-  #   image: "swaggerapi/swagger-ui"
-  #   ports:
-  #     - "80:8080"
-
-# volumes:
-#     postgres:
