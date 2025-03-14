@@ -1,0 +1,8 @@
+   
+services:
+
+  api:
+    build: .
+    command: npm run start:prod
+    ports: 
+      - "3500:3500"
