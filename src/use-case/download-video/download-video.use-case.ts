@@ -20,7 +20,7 @@ export class DownloadVideoUseCase {
       const tempFilesPath: string[] = [];
       const videoInfo = await ytdl.getInfo(videoID);
       const outputFilePath = path.join(
-        String(process.env.TEMP_PATH),
+        'temp/',
         `${videoTag.title}.${videoTag.container}`,
       );
 
@@ -60,7 +60,7 @@ export class DownloadVideoUseCase {
 
     const fileID = uuidv4();
     const outputFilePath = path.join(
-      String(process.env.TEMP_PATH),
+      'temp/',
       `${fileID}-${videoID}.${format.container}`,
     );
     const outputStream = fs.createWriteStream(outputFilePath);
