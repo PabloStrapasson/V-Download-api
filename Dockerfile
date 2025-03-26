@@ -20,7 +20,7 @@ COPY package*.json ./
 RUN npm install --omit=dev --quiet --no-optional --no-fund --loglevel=error
 
 COPY --from=build /api/dist ./dist
-COPY --from=build /api/.env .
+#COPY --from=build /api/.env .
 RUN mkdir -p /api/temp
 
 EXPOSE 3500
